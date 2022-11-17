@@ -11,14 +11,15 @@ import Foundation
 class NewsListVM{
     
     @Published var isLoading = false ;
-    private let requestManager = RequestManager()
+    private let requestManager:RequestManager = RequestManager()
 
     
     
     
     func getNewsList() async {
         do{
-            let topStories[Int] = try await requestManager.perform(TopStoriesRequest())
+            let topStories:[Int] = try await requestManager.perform(TopStoriesRequest())
+            print(topStories)
         } catch{
             
         }
@@ -26,25 +27,11 @@ class NewsListVM{
     }
     
     
+    @MainActor
+    func stopLoading() async{
+        isLoading = false ;
+    }
     
 }
 
 
-
-/*
-
-func fetchAnimals() async {
-  do {
-    let animalsContainer: AnimalsContainer = try await requestManager.perform(AnimalsRequest.getAnimalsWith(
-      page: 1,
-      latitude: nil,
-      longitude: nil))
-    let animals = animalsContainer.animals
-    self.animals = animals
-    await stopLoading()
-  } catch {
-  }
-}
-
-
-*/

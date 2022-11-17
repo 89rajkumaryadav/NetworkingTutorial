@@ -5,10 +5,19 @@ import Foundation
 
 struct TopStoriesRequest: RequestProtocol{
     var path: String{
-        return "/v0/topstories.json?print=pretty"
+        return "/v0/topstories.json"
     }
   
+    var urlParams: [String : String?]{
+        ["print":"pretty"]
+    }
     var requestType: RequestType {
         .GET
     }
+    
+   
 }
+
+
+
+

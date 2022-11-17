@@ -10,9 +10,17 @@ import Foundation
 import SwiftUI
 
 struct NewsList: View {
+   private let  newsVM = NewsListVM()
     var body: some View {
         VStack{
             
+        
+        }.onAppear(){
+        
+            Task{
+                await newsVM.getNewsList()
+            }
+           
         }
     }
 }

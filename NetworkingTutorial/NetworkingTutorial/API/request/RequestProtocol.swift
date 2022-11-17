@@ -6,7 +6,7 @@ protocol RequestProtocol {
   var headers: [String: String] { get }
   var params: [String: Any] { get }
   var urlParams: [String: String?] { get }
-  var addAuthorizationToken: Bool { get }
+  
 }
 
 // MARK: - Default RequestProtocol
@@ -15,9 +15,7 @@ extension RequestProtocol {
     APIConstants.host
   }
 
-  var addAuthorizationToken: Bool {
-    true
-  }
+
 
   var params: [String: Any] {
     [:]
@@ -50,7 +48,7 @@ extension RequestProtocol {
       urlRequest.allHTTPHeaderFields = headers
     }
 
-    if addAuthorizationToken {
+      if !authToken.isEmpty {
       urlRequest.setValue(authToken, forHTTPHeaderField: "Authorization")
     }
 
