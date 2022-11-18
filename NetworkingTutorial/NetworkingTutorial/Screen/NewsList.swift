@@ -15,7 +15,12 @@ struct NewsList: View {
         VStack{
             
         
-        }.onAppear(){
+        }.overlay{
+            if newsVM.isLoading {
+              ProgressView("Loading stories...")
+            }
+        }
+        .onAppear(){
         
             Task{
                 await newsVM.getNewsList()

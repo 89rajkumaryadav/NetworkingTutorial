@@ -18,12 +18,18 @@ class NewsListVM{
     
     func getNewsList() async {
         do{
-            let topStories:[Int] = try await requestManager.perform(TopStoriesRequest())
+            isLoading = true
+            let request = TopStoriesRequest.all
+            let topStories:[Int] = try await requestManager.perform(request)
             print(topStories)
+            if !topStories.isEmpty {
+                
+            }
+            await stopLoading()
         } catch{
             
         }
-       // requestManager.perform(TopStoriesRequest())
+       
     }
     
     
