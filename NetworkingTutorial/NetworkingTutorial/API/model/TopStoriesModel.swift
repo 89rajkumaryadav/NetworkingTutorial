@@ -1,16 +1,21 @@
+//
+//  TopStoriesModel.swift
+//  NetworkingTutorial
+//
+//  Created by Rajkumar Yadav on 11/17/22.
+//
+
+import Foundation
 
 
-enum APIConstants {
-  static let host = "hacker-news.firebaseio.com"
-  static let hostAlbum = "jsonplaceholder.typicode.com" // If we have diffrent base url
-  static let grantType = "client_credentials"
-  static let clientId = "YourKeyHere"
-  static let clientSecret = "YourSecretHere"
+struct TostoriesModel: Codable, Identifiable{
+    let id:Int?
+    let title: String?
+    let type: String?
+    let url: String?
 }
 
 
-//https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty
-// https://hacker-news.firebaseio.com/v0/item/8863.json?print=pretty
 /*
  {
    "by" : "dhouston",
@@ -24,5 +29,3 @@ enum APIConstants {
    "url" : "http://www.getdropbox.com/u/2/screencast.html"
  }
  */
-
-

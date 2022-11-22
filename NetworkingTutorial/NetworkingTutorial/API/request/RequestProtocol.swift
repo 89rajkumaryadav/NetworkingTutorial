@@ -1,6 +1,7 @@
 import Foundation
 
 protocol RequestProtocol {
+  var host: String { get }
   var path: String { get }
   var requestType: RequestType { get }
   var headers: [String: String] { get }

@@ -9,11 +9,15 @@ import Foundation
 
 import SwiftUI
 
-struct NewsList: View {
-   private let  newsVM = NewsListVM()
+struct NewsListScreen: View {
+  @ObservedObject  var  newsVM = NewsListVM()
     var body: some View {
         VStack{
-            
+            List{
+                ForEach(newsVM.allTopStories) { story in
+                    Text(story.title).padding()
+                }
+            }
         
         }.overlay{
             if newsVM.isLoading {
@@ -30,9 +34,12 @@ struct NewsList: View {
     }
 }
 
-struct NewsList_Previews: PreviewProvider {
+
+
+
+struct NewsListScreen_Previews: PreviewProvider {
     static var previews: some View {
-        NewsList()
+        NewsListScreen()
     }
 }
 
