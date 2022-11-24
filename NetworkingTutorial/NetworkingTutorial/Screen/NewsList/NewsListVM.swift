@@ -7,7 +7,7 @@
 
 import Foundation
 
-
+@MainActor
 class NewsListVM: ObservableObject{
     
     @Published var isLoading = false ;
@@ -18,7 +18,7 @@ class NewsListVM: ObservableObject{
        requestManager = RequestManager()
     }
     
-    @MainActor
+   
     func getNewsList() async {
         do{
             var allStories: [TostoriesModel] = [] ;
@@ -28,14 +28,23 @@ class NewsListVM: ObservableObject{
             let topStories:[Int] = try await requestManager.perform(request)
             print(topStories)
             if !topStories.isEmpty {
+              // Using task group to download apis concurrently
+                try await withThrowingTaskGroup(of: TostoriesModel.self, body: { group in
+                    
+                    for id in topStories.prefix(10){
+                        group.addTask {
+                            let request = StoryDetailRequest.getStoryByID(id: id)
+                            let storyDetails: TostoriesModel = try await self.requestManager.perform(request)
+                            return storyDetails
+                        }
+                    }
+                    
+                     for try await details in group{
+                         allStories.append(details)
+                     }
+                    
+                })
                 
-                for id in topStories.prefix(10){
-                    let request = StoryDetailRequest.getStoryByID(id: id)
-                    let storyDetails: TostoriesModel = try await requestManager.perform(request)
-                    allStories.append(storyDetails)
-                   // allTopStories.append(storyDetails)
-                   // print(storyDetails)
-                }
             }
            
             
@@ -50,7 +59,7 @@ class NewsListVM: ObservableObject{
     }
     
     
-    @MainActor
+  
     func stopLoading() async{
         isLoading = false ;
     }
