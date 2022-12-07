@@ -41,9 +41,10 @@ extension RequestProtocol {
     }
 
     guard let url = components.url else { throw  NetworkError.invalidURL }
-
+      debugPrint("URL:-> \(url.absoluteString)")
     var urlRequest = URLRequest(url: url)
     urlRequest.httpMethod = requestType.rawValue
+      urlRequest.timeoutInterval = 60;
 
     if !headers.isEmpty {
       urlRequest.allHTTPHeaderFields = headers

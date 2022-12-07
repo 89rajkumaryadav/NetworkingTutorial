@@ -1,8 +1,11 @@
+import Foundation
 
 
 protocol RequestManagerProtocol {
-  func perform<T: Decodable>(_ request: RequestProtocol) async throws -> T
-  func performWithToken<T: Decodable>(_ request: RequestProtocol) async throws -> T
+    func perform<T: Decodable>(_ request: RequestProtocol) async throws -> T
+    func performWithToken<T: Decodable>(_ request: RequestProtocol) async throws -> T
+    func performData(_ request: RequestProtocol) async throws -> Data
+
 }
 
 
@@ -47,5 +50,9 @@ final class RequestManager: RequestManagerProtocol {
     }
       
     
+    func performData(_ request: RequestProtocol) async throws -> Data
+    {
+       try await apiManager.perform(request, authToken: "")
+    }
     
 }

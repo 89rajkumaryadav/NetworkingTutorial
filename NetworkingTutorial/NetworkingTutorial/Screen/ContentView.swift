@@ -19,6 +19,13 @@ struct ContentView: View {
                        .tabItem {
                            Label("Album", systemImage: "square.and.pencil")
                        }
+            
+            ImagesAndQuot()
+                .tabItem {
+                    Label("Random Images", systemImage: "doc.text.image")
+                }
+            
+            
                }
     }
 }
